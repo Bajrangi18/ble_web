@@ -40,6 +40,7 @@
             // Getting Characteristic…
             return service.getCharacteristic("beb5483e-36e1-4688-b7f5-ea07361b26a8");
         })
+        while(1) {
         .then(characteristic => {
             // Reading value
             return characteristic.readValue();
@@ -48,6 +49,7 @@
             Log(`Value is ${value.getUint8(0)}`);
         })
         .catch(error => { console.error(error); });
+        }
     });
 </script>
 </html>

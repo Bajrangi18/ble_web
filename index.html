@@ -16,11 +16,12 @@
 </body>
 <script>
     // Function to display logs on the website instead of console
-    function Log(msg){
-    document.querySelector('#logs').innerHTML =
-                    document.querySelector('#logs').innerHTML + "<br>" + msg
-
-    }
+    // function Log(msg){
+    // document.querySelector('#logs').innerHTML =
+    //                 document.querySelector('#logs').innerHTML + "<br>" + msg
+    //
+    // }
+    var myCharacteristic;
 
     document.querySelector('button').addEventListener('click', async event => {
         navigator.bluetooth.requestDevice({
@@ -40,25 +41,31 @@
             // Getting Characteristic…
             return service.getCharacteristic("beb5483e-36e1-4688-b7f5-ea07361b26a8");
         })
+        // .then(characteristic => {
+        //     // Reading value
+        //     //return characteristic.readValue();
+        // })
         .then(characteristic => {
-            characteristic.startNotifications()
-            // // Reading value
-            // return characteristic.readValue();
+             myCharacteristic = characteristic;
+             return myCharacteristic.startNotifications().then(_ => {
+              log('> Notifications started');
+             myCharacteristic.addEventListener('characteristicvaluechanged',
+              handleNotifications);
+        });
         })
         // .then(value => {
         //     Log(`Value is ${value.getUint8(0)}`);
         // })
-        .then(characteristic => {
-            characteristic.addEventListener('characteristicvaluechanged',
-                                  handleCharacteristicValueChanged);
-            console.log('Notifications have been started.');
-        })
         .catch(error => { console.error(error); });
     });
+    function handleNotifications(event) {
+       let value = event.target.value;
+       let a = [];
 
-  function handleCharacteristicValueChanged(event) {
-    const value = event.target.value;
-    Log(`Value is ${value.getUint8(0)}`);
+       for (let i = 0; i < value.byteLength; i++) {
+       a.push('0x' + ('00' + value.getUint8(i).toString(16)).slice(-2));
+  }
+  log('> ' + a.join(' '));
 }
 </script>
 

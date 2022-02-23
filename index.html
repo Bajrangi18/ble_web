@@ -18,17 +18,16 @@
     // Function to display logs on the website instead of console
     function Log(msg){
     document.querySelector('#logs').innerHTML =
-                    document.querySelector('#logs').innerHTML + "Enter" + msg
-
+                    document.querySelector('#logs').innerHTML + "<br>" + msg
+   
     }
-    var myCharacteristic;
 
     document.querySelector('button').addEventListener('click', async event => {
         navigator.bluetooth.requestDevice({
             acceptAllDevices: true,
             optionalServices: ['4fafc201-1fb5-459e-8fcc-c5c9c331914b']
         })
-        .then(device => {
+        .then(device => { 
             Log("connecting to " + device.name);
             // Attempts to connect to remote GATT Server.
             return device.gatt.connect();
@@ -41,32 +40,15 @@
             // Getting Characteristic…
             return service.getCharacteristic("beb5483e-36e1-4688-b7f5-ea07361b26a8");
         })
-        // .then(characteristic => {
-        //     // Reading value
-        //     //return characteristic.readValue();
-        // })
         .then(characteristic => {
-             myCharacteristic = characteristic;
-             return myCharacteristic.startNotifications().then(_ => {
-              //log('> Notifications started');
-             myCharacteristic.addEventListener('characteristicvaluechanged',
-              handleNotifications);
-        });
+            // Reading value
+            return characteristic.readValue();
         })
-        // .then(value => {
-        //     Log(`Value is ${value.getUint8(0)}`);
-        // })
+        .then(value => {
+            Log(`Value is ${value.getUint8(0)}`);
+        })
         .catch(error => { console.error(error); });
     });
-    function handleNotifications(event) {
-       let value = event.target.value;
-       let a = [];
-
-       for (let i = 0; i < value.byteLength; i++) {
-       a.push('0x' + ('00' + value.getUint8(i).toString(16)).slice(-2));
-     }
-     Log('> ' + a.join(' '));
-    }
 </script>
 
 </html>

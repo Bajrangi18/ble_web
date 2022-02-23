@@ -43,9 +43,11 @@
             // Reading value
             return characteristic.readValue();
         })
+        while(1) {
         .then(value => {
             Log(`Value is ${value.getUint8(0)}`);
         })
+        }
         .catch(error => { console.error(error); });
     });
 </script>

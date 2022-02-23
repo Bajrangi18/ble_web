@@ -18,7 +18,7 @@
     // Function to display logs on the website instead of console
     function Log(msg){
     document.querySelector('#logs').innerHTML =
-                    document.querySelector('#logs').innerHTML + "<br>" + msg
+                    document.querySelector('#logs').innerHTML + "Enter" + msg
 
     }
     var myCharacteristic;
@@ -48,7 +48,7 @@
         .then(characteristic => {
              myCharacteristic = characteristic;
              return myCharacteristic.startNotifications().then(_ => {
-              log('> Notifications started');
+              //log('> Notifications started');
              myCharacteristic.addEventListener('characteristicvaluechanged',
               handleNotifications);
         });

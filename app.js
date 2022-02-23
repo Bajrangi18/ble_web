@@ -18,7 +18,7 @@ var myCharacteristic;
 
 
 function log(data) {
-  text.innerHTML = text.innerHTML + "<br>" + data;
+  text.innerHTML = data; //text.innerHTML + "<br>" 
 }
 
 

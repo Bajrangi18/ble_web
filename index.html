@@ -16,11 +16,11 @@
 </body>
 <script>
     // Function to display logs on the website instead of console
-    // function Log(msg){
-    // document.querySelector('#logs').innerHTML =
-    //                 document.querySelector('#logs').innerHTML + "<br>" + msg
-    //
-    // }
+    function Log(msg){
+    document.querySelector('#logs').innerHTML =
+                    document.querySelector('#logs').innerHTML + "<br>" + msg
+
+    }
     var myCharacteristic;
 
     document.querySelector('button').addEventListener('click', async event => {
@@ -64,9 +64,9 @@
 
        for (let i = 0; i < value.byteLength; i++) {
        a.push('0x' + ('00' + value.getUint8(i).toString(16)).slice(-2));
-  }
-  log('> ' + a.join(' '));
-}
+     }
+     Log('> ' + a.join(' '));
+    }
 </script>
 
 </html>

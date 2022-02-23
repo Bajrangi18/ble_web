@@ -19,6 +19,7 @@
     function Log(msg){
     document.querySelector('#logs').innerHTML =
                     document.querySelector('#logs').innerHTML + "<br>" + msg
+    setTimeout(Log, 100);
     }
 
     document.querySelector('button').addEventListener('click', async event => {
@@ -43,11 +44,9 @@
             // Reading value
             return characteristic.readValue();
         })
-        while(1){
         .then(value => {
             Log(`Value is ${value.getUint8(0)}`);
         })
-        }
         .catch(error => { console.error(error); });
     });
 </script>

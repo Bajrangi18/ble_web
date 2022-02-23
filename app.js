@@ -10,7 +10,7 @@ var myCharacteristic;
   let value = event.target.value;
   let a = [];
   for (let i = 0; i < value.byteLength; i++) {
-    a.push(value.getUint8(0));
+    a.push(value.getUint8(i));
   }
   log('> ' + a.join(' '));
  }

@@ -1,9 +1,9 @@
 var myCharacteristic;
     const btn = document.getElementById("btn");
-    const text1 = document.getElementById("log1");
-    const text2 = document.getElementById("log2");
-    const text3 = document.getElementById("log3");
-    const text4 = document.getElementById("log4");
+    const text1 = document.getElementById("logs1");
+    const text2 = document.getElementById("logs2");
+    const text3 = document.getElementById("logs3");
+    const text4 = document.getElementById("logs4");
 
   btn.addEventListener("click", async event =>{
         startButton();
@@ -15,11 +15,10 @@ var myCharacteristic;
   for (let i = 0; i < value.byteLength; i++) {
     a.push(value.getUint8(i));
   }
-  log1(a.join(' '));
-
-//   log2(a[1]);
-//   log3(a[2]);
-//   log4(a[3]);
+  log1(a[0]);
+  log2(a[1]);
+  log3(a[2]);
+  log4(a[3]);
   }
 
 

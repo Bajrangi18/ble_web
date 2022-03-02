@@ -1,6 +1,9 @@
 var myCharacteristic;
     const btn = document.getElementById("btn");
-    const text = document.getElementById("logs");
+    const text1 = document.getElementById("log1");
+    const text2 = document.getElementById("log2");
+    const text3 = document.getElementById("log3");
+    const text4 = document.getElementById("log4");
 
   btn.addEventListener("click", async event =>{
         startButton();
@@ -12,13 +15,25 @@ var myCharacteristic;
   for (let i = 0; i < value.byteLength; i++) {
     a.push(value.getUint8(i));
   }
-  log('> ' + a.join(' '));
- }
+  log1(a[0]);
+  log2(a[1]);
+  log3(a[2]);
+  log4(a[3]);
+  }
 
 
 
-function log(data) {
-  text.innerHTML = data; //text.innerHTML + "<br>" 
+function log1(data) {
+  text1.innerHTML = data;  
+}
+function log2(data) {
+  text2.innerHTML = data; 
+}
+function log3(data) {
+  text3.innerHTML = data;  
+}
+function log4(data) {
+  text4.innerHTML = data;  
 }
 
 
@@ -28,21 +43,21 @@ function startButton() {
      optionalServices: ['4fafc201-1fb5-459e-8fcc-c5c9c331914b']
   })
   .then(device => {
-      log('Connecting to GATT Server...' + device.name );
+//       log('Connecting to GATT Server...' + device.name );
     return device.gatt.connect();
   })
   .then(server => {
-      log('Getting Service...');
+//       log('Getting Service...');
    return server.getPrimaryService("4fafc201-1fb5-459e-8fcc-c5c9c331914b");
   })
   .then(service => {
-      log('Getting Characteristic...');
+//       log('Getting Characteristic...');
       return service.getCharacteristic("beb5483e-36e1-4688-b7f5-ea07361b26a8");
   })
   .then(characteristic => {
    myCharacteristic = characteristic;
     return myCharacteristic.startNotifications().then(_ => {
-    log('> Notifications started');
+//     log('> Notifications started');
     myCharacteristic.addEventListener('characteristicvaluechanged',
     handleNotifications);
     });
